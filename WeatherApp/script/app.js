@@ -3,12 +3,8 @@ const card =document.querySelector('.card');
 const details =document.querySelector('.details');
 const icon =document.querySelector('.icon img')
 const time = document.querySelector('img.time')
+const forecast =new Forecast();
 
-const updateCity= async (city)=> {
-const cityDetails = await getCity(city);
-const weather = await getWeather(cityDetails.Key);
-return { cityDetails, weather }
-}
 // updating user interfase
 const updateUI= (data)=>{
     const weather = data.weather;
@@ -56,7 +52,7 @@ cityForm.addEventListener('submit',(e)=>{
    
     
     //update the ui with new city
-    updateCity(city)
+    forecast.updateCity(city)
     .then((data)=>{
        updateUI(data);
     })
@@ -68,7 +64,7 @@ cityForm.addEventListener('submit',(e)=>{
 })
 
  if(localStorage.getItem('city')){
-    updateCity(localStorage.getItem('city'))
+   forecast.updateCity(localStorage.getItem('city'))
     .then(data=>{
         updateUI(data);
     })
